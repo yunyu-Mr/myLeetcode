@@ -1,8 +1,3 @@
-"""
-Author: smtech
-Method: Hash Table
-History: 2015-09-07
-"""
 class Solution(object):
     def twoSum(self, nums, target):
         """

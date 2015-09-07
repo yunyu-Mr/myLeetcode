@@ -3,19 +3,19 @@ class Solution:
     def lengthOfLongestSubstring(self, s):
         #without repeat char
         
-        max_len = 0
-        curr_len = 0
-        charmap = dict()
+        max_len = 0     # record max length
+        curr_len = 0    # record current length
+        charmap = dict() # hash map
         
         for i in xrange(len(s)):
             ch = s[i]
             curr_len += 1
             
-            # repeat
+            # if repeat, refresh current char
             if charmap.get(ch) !=None: 
                 curr_len = min(curr_len, i-charmap.get(ch))
 
-            charmap[ch] = i
+            charmap[ch] = i # hash map add none-repeat char
                 
             max_len = max(curr_len, max_len)
         

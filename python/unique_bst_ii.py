@@ -6,6 +6,9 @@ class TreeNode(object):
         self.right = None
 
 class Solution(object):
+    """
+    None Recursive Solution
+    """
     def generateTrees(self, n):
         """
         :type n: int
@@ -46,6 +49,9 @@ class Solution(object):
         					btree[intval+1][i].append(root)
         return btree[-1][0]
 
+    """
+    Recursive Solution
+    """
     def dfs(self, i, j):
         """
         i: start point, j: stop point

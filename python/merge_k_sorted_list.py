@@ -15,6 +15,15 @@ class Solution(object):
         return self.mergeKSubLists(lists, 0, len(lists)-1)
 
     def mergeKSubLists(self, lists, l, r):
+        """
+        :param lists: List[ListNode]
+        :param l: int
+        :param r: int
+        :return: ListNode
+
+        Divide and Conquer method.
+         Merge( Merge(left lists), Merge(right lists) )
+        """
         if l == r:
             # print 'l=',l
             return lists[l]

@@ -11,7 +11,7 @@ class Solution(object):
         # Then find target
         pivot = nums[0]
         if target < pivot:
-            if brk == len(nums)-1:
+            if brk == len(nums)-1: # in case brk+1 too large
                 return -1
             # find in right part
             return self.searchBinary(nums, brk+1, len(nums)-1, target)
@@ -34,7 +34,7 @@ class Solution(object):
             return self.searchMax(nums, l, m)
         if m+1 == len(nums):
             return m
-        elif nums[m]>nums[m+1]:
+        elif nums[m] > nums[m+1]:
             return m
         # right
         return self.searchMax(nums, m+1, r)
@@ -48,13 +48,13 @@ class Solution(object):
         :return: int
         """
         if l == r:
-            if target == nums[l]:
+            if target == nums[l]: # if found, return index
                 return l
-            return -1
+            return -1  # if not found, return -1
         m = (l+r) / 2
         if target <= nums[m]:
-            return self.searchBinary(nums, l, m, target)
-        return self.searchBinary(nums, m+1, r, target)
+            return self.searchBinary(nums, l, m, target)  #left
+        return self.searchBinary(nums, m+1, r, target)    #right
 
 
 if __name__ == '__main__':

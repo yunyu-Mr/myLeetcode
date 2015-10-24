@@ -1,4 +1,7 @@
 class Solution(object):
+    """
+    Binary Search Method
+    """
     def mySqrt(self, x):
         """
         :type x: int
@@ -12,9 +15,9 @@ class Solution(object):
             elif m*m < x:
                 l = m+1
             else:
-                l = h = m
+                h = m
                 break
-        print "l=%d, h=%d" %(l, h)
+        # print "l=%d, h=%d" %(l, h)
         return h
 
 if __name__ == '__main__':

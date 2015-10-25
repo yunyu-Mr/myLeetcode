@@ -23,6 +23,7 @@ class Solution(object):
                 result.append(newInterval)
                 inserted = True
                 break
+            # Situation: inner overlapping
             if newInterval.start <= intervals[i].end:
                 newInterval.start = min(newInterval.start, intervals[i].start)
 

@@ -34,7 +34,7 @@ public:
         	}
         	left = left->next;
         }
-        printf("find the partition point: left=%d, right=%d\n", left->val, right->val);
+        // printf("find the partition point: left=%d, right=%d\n", left->val, right->val);
         ListNode *prev = right, *curr = right->next;
         while (curr != nullptr) {
         	if (curr->val >= x) {

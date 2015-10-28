@@ -5,9 +5,14 @@ class Solution(object):
         :type t: str
         :rtype: str
         """
-        d = dict()
+        d, dr = dict(), dict()
         for e in t:
             d[e] = 0
+            if not dr.get(e):
+                dr[e] = 1
+            else:
+                dr[e] += 1
+
         l, h = 0, 0
         while min(d.values()) < 1 and h < len(s):
             if d.get(s[h]) >= 0:
@@ -40,6 +45,33 @@ class Solution(object):
                 break
         return s[min_low: min_low + min_len]
 
+    def moreDict(self, d, dr):
+        """
+        :param d: dict
+        :param dr: dict
+        :return: int
+        """
+        for (k,v), (kr, vr) in zip(d.items(), dr.items()):
+            if k != kr:
+                return -1
+            if v < vr:
+                return 0
+        return 1
+
+    def lessDict(self, d, dr):
+        """
+        :param d: dict
+        :param dr: dict
+        :return: int
+        """
+        for (k,v), (kr, vr) in zip(d.items(), dr.items()):
+            if k != kr:
+                return -1
+            if v == vr:
+                return 0
+        return 1
+
 if __name__ == '__main__':
     s = Solution()
-    print s.minWindow('ABDEBANCFABCD', 'ABC')
+    # print s.minWindow('ABDEBANCFABCD', 'ABC')
+    # print s.compareDict({'b':2, 'a':1}, {'a':1, 'b':2})

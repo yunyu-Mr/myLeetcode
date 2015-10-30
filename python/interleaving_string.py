@@ -21,6 +21,11 @@ class Solution(object):
         for j in xrange(n2-1, -1, -1):
             m[n1][j] = (s2[j] == s3[n1+j]) and m[n1][j+1]
 
+        # Recursive Solution:
+        # For example, s1 ='abc', s2 ='bcf', s3 ='abbccf'. As 'a' is the first,
+        # we should only check isInterleaving('bc', bcf, 'bbccf').
+        # Clearly, such a recursion is overlapping, so we can use dynamic programming.
+
         # Iteration
         for i in xrange(n1-1, -1, -1):
             for j in xrange(n2-1, -1, -1):

@@ -54,3 +54,37 @@ public:
         return minBST(root->left);
     }
 };
+
+/*
+ * Method 2 In order
+ * In order transversal of a BST must in increasing order. 
+ * So, the stack traceback is in decreasing order.
+ * If it is not in order, return false.
+ */
+class Solution2 {
+private:
+    stack<TreeNode*> trace;
+    void inOrderTrace(TreeNode* root) {
+        if (root == nullptr)
+            return;
+        inOrderTrace(root->left);
+        this->trace.push(root);
+        inOrderTrace(root->right);
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        if (root == nullptr) {
+            return true;
+        }
+        inOrderTrace(root);
+        TreeNode * curr = trace.top();
+        trace.pop();
+        while (!trace.empty()) {
+            if (curr->val <= (trace.top())->val)
+                return false;
+            curr = trace.top();
+            trace.pop();
+        }
+        return true;
+    }
+};

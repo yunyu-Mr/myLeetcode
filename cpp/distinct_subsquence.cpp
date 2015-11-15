@@ -12,6 +12,7 @@ public:
     	if (m < 1 || n < 1 || m > n)
     		return 0;
 
+    	// Matrix initialization : (m+1)x(n+1)
         vector<vector<int>> mtx(m+1, vector<int>(n+1));
 
         // src string is empty

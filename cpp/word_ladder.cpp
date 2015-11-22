@@ -27,44 +27,33 @@ public:
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
     	if (beginWord.length() == 0)
     		return 0;
-    	if (beginWord.length() == 1)
-    		return 1;
 
-    	int len = 1;
+    	// Queue pair: first: word; second: count
+        queue<pair<string, int>> q;
+        q.push(make_pair(beginWord, 1));
 
-        queue<string> q;
-        q.push(beginWord);
-        q.push("");
-        while (!q.empty()) {
-        	string nextWord = q.front();
-        	// cout<<"nextWord: "<<nextWord<<endl;
-        	if (nextWord == "")
-        		break;
+        while (!q.empty()) 
+        {
+        	// Get the front element
+        	pair<string, int> qfront = q.front();
         	q.pop();
 
-        	// 
-        	if (isNextWord(nextWord, endWord))
-        		return ++len;
+        	// Check if it is near endWord
+        	if (isNextWord(qfront.first, endWord))
+        		return qfront.second + 1;
 
-        	//
-        	auto pWord = wordList.begin();
-        	while (pWord != wordList.end())
+        	// Iterate the wordList and find the NextWord( one char diff)
+        	for (auto pWord = wordList.begin(); pWord != wordList.end(); ) 
         	{
-        		if (isNextWord(nextWord, *pWord))
+        		if (isNextWord(*pWord, qfront.first)) 
         		{
-        			// cout<<*pWord<<"\t";
-        			q.push(*pWord);
+        			q.push(make_pair(*pWord, qfront.second + 1));
         			wordList.erase(pWord++);
         		}
         		else {
         			pWord++;
         		}
-        	}
 
-        	if (q.front() == ""){
-        		q.push("");
-        		q.pop();
-        		len++;
         	}
         }
 

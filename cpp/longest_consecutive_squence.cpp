@@ -4,6 +4,13 @@
 
 using namespace std;
 
+/*
+*  Longest Consecutive Squence (C++11)
+*  Complexity: O(N)
+*
+* Complexity of unordered_set::erase  :
+* Linear in the number of elements removed ( O(1) if erased by a key)
+*/
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {

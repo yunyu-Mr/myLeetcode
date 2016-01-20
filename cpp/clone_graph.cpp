@@ -32,7 +32,7 @@ public:
 
     	UndirectedGraphNode* newNode = new UndirectedGraphNode(node->label);
 
-    	visitedMap.insert(make_pair(node, newNode));
+    	visitedMap[node] = newNode;
     	// cout<<"Visit "<<node->label<<endl;
 
     	// Visit all neighbor

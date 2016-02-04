@@ -57,16 +57,18 @@ public:
 		if (nums.size() <= 1)
 			return nums[0];
 
-		int pos = 0,
+		int res = 0,
+			pos = 0,
 			neg = 0;
 
 		for (int i = 0; i < nums.size(); ++i) {
 			int tmp = pos;
 			pos = max(nums[i], max(pos*nums[i], neg*nums[i]));
 			neg = min(nums[i], min(tmp*nums[i], neg*nums[i]));
+			res = max(res, pos);
 		}
 
-		return pos;
+		return res;
 	}
 };
 

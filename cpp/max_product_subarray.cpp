@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/*
+ *	My fucking solution
+ */
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
@@ -44,9 +47,33 @@ public:
     }
 };
 
+/*
+ *	Advanced solution
+ */
+class Solution2
+{
+public:
+	int maxProduct(vector<int> & nums) {
+		if (nums.size() <= 1)
+			return nums[0];
+
+		int pos = 0,
+			neg = 0;
+
+		for (int i = 0; i < nums.size(); ++i) {
+			int tmp = pos;
+			pos = max(nums[i], max(pos*nums[i], neg*nums[i]));
+			neg = min(nums[i], min(tmp*nums[i], neg*nums[i]));
+		}
+
+		return pos;
+	}
+};
+
 int main(int argc, char const *argv[])
 {
 	Solution s;
+	// Solution2 s;
 	vector<int> nums = {1,0,-1,2,3,-5,-2};
 	int prod = s.maxProduct(nums);
 	cout<<prod<<endl;

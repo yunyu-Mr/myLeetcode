@@ -63,3 +63,37 @@ public:
         return result;
     }
 };
+
+
+/*
+ * Solution 3: Non-recursive method, using stack. Better than method 2.
+ */
+class Solution 
+{
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if (root == nullptr)
+            return result;
+
+        stack<TreeNode *> s;
+
+        // Push the root node
+        s.push(root);
+
+        // Iterate until stack empty
+        while (!s.empty()) {
+            TreeNode *root = s.top(); s.pop();
+
+            result.push_back(root->val);
+
+            // Attention! Push right first, because stack will pop it later.
+            if (root->right != nullptr)
+                s.push(root->right);
+            // Then push left.
+            if (root->left != nullptr)
+                s.push(root->left);
+        }
+        return result;
+    }
+};

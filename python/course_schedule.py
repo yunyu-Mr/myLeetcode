@@ -49,8 +49,8 @@ class Solution(object):
         # Turn into adjacency list.
         graph = Graph(numCourses)
         graph.V = [Vertex(i) for i in xrange(numCourses)]
-        for edge in prerequisites:
-            graph.Adj[edge[0]].append(graph.V[edge[1]])
+        for i, j in prerequisites:
+            graph.Adj[i].append(graph.V[j])
         # DFS.
         return self.dfs(graph)
         

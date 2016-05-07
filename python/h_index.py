@@ -27,3 +27,6 @@ class Solution(object):
 if __name__ == '__main__':
     s = Solution()
     print s.hIndex([3, 0, 6, 1, 5])
+    print s.hIndex([0])
+    print s.hIndex([1])
+    print s.hIndex([0,0])

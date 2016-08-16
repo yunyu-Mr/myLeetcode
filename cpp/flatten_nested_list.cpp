@@ -24,53 +24,44 @@ private:
     nestedit cur;
     nestedit end;
     
-    void escape() {
-        // cur reach end but stack is not empty.
-        while (cur == end && !sc.empty()) {
-            // Restore from stack.
-            cur = sc.top(); sc.pop();
-            end = se.top(); se.pop();
-            // Move to next.
-            cur++;
-        }
-    }
-    
-    void moveNext() {
-        // Point to first integer.
-        while (cur != end && !cur->isInteger()) {
-            // Snapshot.
-            sc.push(cur);
-            se.push(end);
-            end = cur->getList().end();
-            cur = cur->getList().begin();
-            // Escape in case empty list.
-            escape();
-        }
-    }
-    
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
         cur = nestedList.begin();
         end = nestedList.end();
-        // Point to first integer.
-        if (cur != end) moveNext();
     }
 
     int next() {
-        // Get integer.
-        int result = cur->getInteger();
-        // Move next.
-        cur++;
-        // Escape current list if reached end yet.
-        escape();
-        // Move to next integer.
-        moveNext();
-        
-        return result;
+        // Get next integer and move next.
+        return (cur++)->getInteger();
     }
 
     bool hasNext() {
-        if (cur == end && sc.empty())  return false;
+        // Reach end, restore from stack.
+        while (cur == end)
+            if (sc.empty()) return false;
+            else {  // Current nestedList is over, back to upper layer nestedList.
+                cur = sc.top(); sc.pop();
+                end = se.top(); se.pop();
+                cur++;
+            }
+        // Move to next integer.
+        while (cur != end && !cur->isInteger()) {
+            // Current nested is a list, save current state and get into the new list.
+            sc.push(cur);
+            se.push(end);
+            end = cur->getList().end();
+            cur = cur->getList().begin();
+            
+            // In case *empty* nested list, restore.
+            while (cur == end)
+                if (sc.empty()) return false;
+                else {  // Current nestedList is over, back to upper layer nestedList.
+                    cur = sc.top(); sc.pop();
+                    end = se.top(); se.pop();
+                    cur++;
+                }
+        }
+        // cur != end and next is interger.
         return true;
     }
 };

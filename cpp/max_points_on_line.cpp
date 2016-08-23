@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <iostream>
-#include <map>
 #include <vector>
 #include <unordered_map>
 using namespace std;
@@ -13,10 +12,39 @@ struct Point {
      Point(int a, int b) : x(a), y(b) {}
 };
 
+struct Line {
+    // y = kx + b;
+    double slope;   // k
+    double b;       // b
+    Line (double s, double b):slope(s),b(b){};
+};
+
+bool operator==(const Line &lhs, const Line &rhs) {
+        return lhs.slope == rhs.slope && lhs.b == rhs.b;
+}
+
+namespace std{
+    template <> 
+    struct hash<Line>
+    {
+        size_t operator()(Line const& line) const {
+            using std::hash;
+            using std::size_t;
+            
+            size_t hashc = 17;
+            hashc = hashc * 31 + hash<double>() (line.slope);
+            hashc = hashc * 31 + hash<double>() (line.b);
+            return hashc;
+        }
+    };
+}
+
+
 class Solution {
-typedef map<pair<double, double>, int> LineMap;
+// typedef map<pair<double, double>, int> LineMap;
+typedef unordered_map<Line, int>       LineMap;
 typedef unordered_map<int, int>        Vertical;
-typedef pair<double, double>           LineSig;
+// typedef pair<double, double>           LineSig;
 
 public:
     int maxPoints(vector<Point>& points) {
@@ -52,7 +80,7 @@ public:
                     }
                 }
                 else {  // Common line.
-                    LineSig line = calLine (a, b);  // calculate line signature.
+                    Line line = calLine (a, b);  // calculate line signature.
                     if (lineMap.find (line) == lineMap.end()) {
                         lineMap[line] = 1;  // New line.
                         currMax = max(currMax, 1);
@@ -70,12 +98,13 @@ public:
         return maxNum;
     }
     
-    LineSig calLine(const Point &a, const Point &b) {
+    Line calLine(const Point &a, const Point &b) {
         // y = kx + C
         double slope = (double) (a.y - b.y) / (a.x - b.x);
         double C = a.y - slope * a.x;
         printf("%f, %f\n", slope, C);
-        return make_pair(slope, C);
+        Line line(slope, C);
+        return line;
     }
 };
 

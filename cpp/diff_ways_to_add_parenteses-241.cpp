@@ -68,21 +68,22 @@ public:
         // Extract operators and numbers.
         extract (nums, operators, input);
         
+
         typedef std::vector<int>                             Vec1D;
         typedef std::vector<std::vector<int> >               Vec2D;
         typedef std::vector<std::vector<std::vector<int> > > Vec3D;
 
         // Initialize
-        int k = 1;                       // sub calcu's length.
-        Vec3D dp(nums.size(), Vec2D());  // 3-dimensional, dp results.
+        int   N = nums.size();   // Number of numbers.
+        Vec3D dp (N, Vec2D());  // 3-dimensional, dp results.
 
         for (int num : nums)
             dp[0].push_back(Vec1D(1, num));
         
-        k = 2;
-        for (; k <= nums.size(); k++)       // For each sub len.
+        int k = 2;
+        for (; k <= N; k++)       // For each sub len.
         {
-            for (int s = 0; s <= nums.size() - k; s++)      // For each start point.
+            for (int s = 0; s <= N - k; s++)      // For each start point.
             {
                 dp[k-1].push_back(Vec1D());
 
@@ -90,14 +91,14 @@ public:
                 for (int i = s; i < s + k -1; i++)          // For each split point.
                 {
                     char op = operators[i];
-                    vector<int> result = merge(dp[i-s][s], dp[s+k-1-i-1][i+1], op);
+                    const vector<int>& result = merge(dp[i-s][s], dp[s+k-1-i-1][i+1], op);
                     // printVec(result);
                     auto it = dp[k-1][s].end();
                     dp[k-1][s].insert(it, result.begin(), result.end());
                 }
             }
         }
-        return dp[k-2][0];
+        return dp[N-1][0];
     }
 };
 

@@ -64,31 +64,27 @@ public:
     vector<int> diffWaysToCompute(string input) {
         vector<char> operators;
         vector<int> nums;
-        // 3-dimensional dp results:
-        vector<vector<vector<int> > > dp;
         
         // Extract operators and numbers.
         extract (nums, operators, input);
         
-        //
-        int k = 1;  // sub calcu's length.
-        // Init
-        vector<vector<int> > tmp;
-        for (int num : nums) {
-            vector<int> e(1, num);
-            tmp.push_back(e);
-        }
-        dp.push_back(tmp);
+        typedef std::vector<int>                             Vec1D;
+        typedef std::vector<std::vector<int> >               Vec2D;
+        typedef std::vector<std::vector<std::vector<int> > > Vec3D;
+
+        // Initialize
+        int k = 1;                       // sub calcu's length.
+        Vec3D dp(nums.size(), Vec2D());  // 3-dimensional, dp results.
+
+        for (int num : nums)
+            dp[0].push_back(Vec1D(1, num));
         
         k = 2;
         for (; k <= nums.size(); k++)       // For each sub len.
         {
-            vector<vector<int> > tmp;
-            dp.push_back(tmp);
-
             for (int s = 0; s <= nums.size() - k; s++)      // For each start point.
             {
-                dp[k-1].push_back(vector<int>());
+                dp[k-1].push_back(Vec1D());
 
                 // Devide and conquer
                 for (int i = s; i < s + k -1; i++)          // For each split point.

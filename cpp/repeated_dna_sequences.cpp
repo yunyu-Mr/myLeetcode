@@ -24,7 +24,6 @@ public:
         			res.push_back(sub);
         			hash[sub] = 2;
         		}
-
         	}
         	else
         		hash[sub] = 1;

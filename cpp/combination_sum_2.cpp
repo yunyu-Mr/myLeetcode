@@ -49,6 +49,7 @@ public:
         // Include N same candidates.
         for (i = 1; i <= nSame; i++) {
             sum += candidates[k];
+            // Cut branches.
             if (sum >target)
                 return;
             for (int j = 1; j <= i; j++)

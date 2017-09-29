@@ -12,6 +12,7 @@ struct Point {
      Point(int a, int b) : x(a), y(b) {}
 };
 
+// Definition for a line.
 struct Line {
     // y = kx + b;
     double slope;   // k
@@ -19,10 +20,12 @@ struct Line {
     Line (double s, double b):slope(s),b(b){};
 };
 
-bool operator==(const Line &lhs, const Line &rhs) {
+// Custom equal operator.
+bool operator==(const Line& lhs, const Line& rhs) {
         return lhs.slope == rhs.slope && lhs.b == rhs.b;
 }
 
+// Custom hash function.
 namespace std{
     template <> 
     struct hash<Line>
@@ -30,7 +33,7 @@ namespace std{
         size_t operator()(Line const& line) const {
             using std::hash;
             using std::size_t;
-            
+
             size_t hashc = 17;
             hashc = hashc * 31 + hash<double>() (line.slope);
             hashc = hashc * 31 + hash<double>() (line.b);

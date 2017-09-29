@@ -1,9 +1,11 @@
-//Definition for singly-linked list.
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
@@ -29,7 +31,6 @@ public:
             curr->next = new ListNode(s % 10);
             curr = curr->next;
         }
-        // Add the last carry!
         if (carry) curr->next = new ListNode(1);
         return head->next;
     }
